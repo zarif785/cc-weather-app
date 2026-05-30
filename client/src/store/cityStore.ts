@@ -14,16 +14,18 @@ interface Weather {
 
 interface CityStore {
   city: string;
+  country: string;
   weather: Weather | null;
   loading: boolean;
   error: string | null;
   unit: 'C' | 'F';
   setUnit: (unit: 'C' | 'F') => void;
-  selectCity: (name: string, lat: number, lon: number) => Promise<void>;
+  selectCity: (name: string, country: string, lat: number, lon: number) => Promise<void>;
 }
 
 export const useCityStore = create<CityStore>((set) => ({
   city: '',
+  country: '',
   weather: null,
   loading: false,
   error: null,
@@ -31,8 +33,8 @@ export const useCityStore = create<CityStore>((set) => ({
 
   setUnit: (unit) => set({ unit }),
 
-  selectCity: async (name, lat, lon) => {
-    set({ city: name, loading: true, error: null });
+  selectCity: async (name, country, lat, lon) => {
+    set({ city: name, country, loading: true, error: null });
     try {
       const res = await client.get('/weather', { params: { lat, lon } });
       // OWM returns the nearest weather station's name for given coordinates,

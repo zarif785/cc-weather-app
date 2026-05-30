@@ -35,7 +35,7 @@ function CitySearch() {
   }, [query]);
 
   function handleSelect(city: City) {
-    selectCity(city.name, city.lat, city.lon);
+    selectCity(city.name, city.country, city.lat, city.lon);
     setQuery(city.name);
     setSuggestions([]);
   }

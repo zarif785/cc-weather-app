@@ -1,6 +1,7 @@
 import { motion, type Variants } from 'motion/react';
 import { useAuthStore } from '../store/authStore';
 import { useCityStore } from '../store/cityStore';
+import { useSocket } from '../hooks/useSocket';
 import CitySearch from '../components/CitySearch';
 import WeatherCard from '../components/WeatherCard';
 
@@ -19,6 +20,8 @@ function HomePage() {
   const logout = useAuthStore((s) => s.logout);
   const unit = useCityStore((s) => s.unit);
   const setUnit = useCityStore((s) => s.setUnit);
+
+  useSocket();
 
   const today = new Date().toLocaleDateString('en-GB', {
     weekday: 'long',
