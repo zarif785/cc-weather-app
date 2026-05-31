@@ -16,8 +16,8 @@ function createApp({ io }) {
   });
 
   app.use("/api/auth", authRouter);
+  app.use("/api", createMessagesRouter(io));
   app.use("/api", requireAuth, weatherRouter);
-  app.use("/api", requireAuth, createMessagesRouter(io));
 
   return app;
 }

@@ -5,15 +5,14 @@ import { useCityStore } from '../store/cityStore';
 
 interface IncomingMessage {
   city: string;
-  country: string;
+  state: string;
   message: string;
-  username: string;
   timestamp: string;
 }
 
 export function useSocket() {
   const city = useCityStore((s) => s.city);
-  const country = useCityStore((s) => s.country);
+  const state = useCityStore((s) => s.state);
   const socketRef = useRef<Socket | null>(null);
 
   // Connect once, listen for incoming messages.
@@ -29,10 +28,10 @@ export function useSocket() {
           }`}
         >
           <p className="text-[0.65rem] uppercase tracking-[0.25em] text-ink-soft">
-            Dispatch · {msg.city}, {msg.country}
+            {msg.city}
+            {msg.state ? `, ${msg.state}` : ''}
           </p>
-          <p className="mt-1 font-display text-lg italic text-ink">{msg.message}</p>
-          <p className="mt-1 text-xs text-ink-soft">— {msg.username}</p>
+          <p className="mt-1 font-display text-lg text-ink">{msg.message}</p>
         </div>
       ));
     });
@@ -44,8 +43,8 @@ export function useSocket() {
 
   // Join the room for the selected city whenever it changes.
   useEffect(() => {
-    if (city && country && socketRef.current) {
-      socketRef.current.emit('join-city', { city, country });
+    if (city && socketRef.current) {
+      socketRef.current.emit('join-city', { city, state });
     }
-  }, [city, country]);
+  }, [city, state]);
 }

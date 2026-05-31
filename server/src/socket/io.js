@@ -21,16 +21,16 @@ function registerSocketHandlers(io) {
   });
 
   io.on('connection', (socket) => {
-    socket.on('join-city', ({ city, country }) => {
-      const room = `city:${city.toLowerCase()}|${country.toLowerCase()}`;
+    socket.on('join-city', ({ city, state }) => {
+      const room = `city:${city.toLowerCase()}|${(state || '').toLowerCase()}`;
       socket.rooms.forEach((r) => {
         if (r.startsWith('city:')) socket.leave(r);
       });
       socket.join(room);
     });
 
-    socket.on('leave-city', ({ city, country }) => {
-      const room = `city:${city.toLowerCase()}|${country.toLowerCase()}`;
+    socket.on('leave-city', ({ city, state }) => {
+      const room = `city:${city.toLowerCase()}|${(state || '').toLowerCase()}`;
       socket.leave(room);
     });
   });

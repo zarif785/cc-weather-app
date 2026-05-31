@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import client from '../api/client';
 import { useCityStore } from '../store/cityStore';
@@ -16,7 +16,16 @@ function CitySearch() {
   const [suggestions, setSuggestions] = useState<City[]>([]);
   const selectCity = useCityStore((s) => s.selectCity);
 
+  const skipSearch = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
+   
+    if (skipSearch.current) {
+      skipSearch.current = false;
+      return;
+    }
+
     if (query.trim().length < 2) {
       setSuggestions([]);
       return;
@@ -34,14 +43,26 @@ function CitySearch() {
     return () => clearTimeout(timer);
   }, [query]);
 
+
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setSuggestions([]);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   function handleSelect(city: City) {
-    selectCity(city.name, city.country, city.lat, city.lon);
+    skipSearch.current = true;
+    selectCity(city.name, city.state || '', city.lat, city.lon);
     setQuery(city.name);
     setSuggestions([]);
   }
 
   return (
-    <div className="relative">
+    <div ref={containerRef} className="relative">
       <label
         htmlFor="city-search"
         className="text-[0.7rem] uppercase tracking-[0.2em] text-ink-soft"

@@ -69,7 +69,7 @@ function SignupPage() {
       >
         <motion.h1
           variants={item}
-          className="text-center font-display text-6xl font-light italic leading-none text-ink"
+          className="text-center font-display text-6xl font-light leading-none text-ink"
         >
           Weather
         </motion.h1>
@@ -182,13 +182,13 @@ function SignupPage() {
               className="border-0 border-b border-rule bg-transparent pb-1 font-display text-lg text-ink outline-none transition-colors focus:border-accent"
             />
             {confirm && !passwordsMatch && (
-              <p className="mt-1 text-xs italic text-accent">
+              <p className="mt-1 text-xs text-accent">
                 Passwords do not match
               </p>
             )}
           </div>
 
-          {error && <p className="text-sm italic text-accent">{error}</p>}
+          {error && <p className="text-sm text-accent">{error}</p>}
 
           <button
             type="submit"

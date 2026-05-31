@@ -46,7 +46,7 @@ function HomePage() {
             <p className="text-[0.7rem] uppercase tracking-[0.3em] text-ink-soft">
               {today}
             </p>
-            <h1 className="font-display text-4xl font-light italic text-ink">
+            <h1 className="font-display text-4xl font-light text-ink">
               Weather
             </h1>
           </div>

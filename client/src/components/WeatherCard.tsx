@@ -19,20 +19,16 @@ function WeatherCard() {
     unit === 'C' ? celsius : Math.round((celsius * 9) / 5 + 32);
 
   if (loading) {
-    return (
-      <p className="font-display text-lg italic text-ink-soft">Reading the skies…</p>
-    );
+    return <p className="font-display text-lg text-ink-soft">Loading…</p>;
   }
 
   if (error) {
-    return <p className="text-sm italic text-accent">{error}</p>;
+    return <p className="text-sm text-accent">{error}</p>;
   }
 
   if (!weather) {
     return (
-      <p className="font-display text-lg italic text-ink-soft">
-        Search for a city to see its weather.
-      </p>
+      <p className="font-display text-lg text-ink-soft">Search for a city above.</p>
     );
   }
 
@@ -54,15 +50,15 @@ function WeatherCard() {
         {weather.city}, {weather.country}
       </p>
 
-      <p className="mt-1 font-display text-sm italic text-ink-soft">
-        Local time · {localTime}
+      <p className="mt-1 font-display text-sm text-ink-soft">
+        Local time {localTime}
       </p>
 
       <span className="mt-2 block font-display text-[7rem] font-light leading-none text-ink">
         {toDisplay(weather.temp)}°{unit}
       </span>
 
-      <p className="mt-1 font-display text-2xl italic capitalize text-ink">
+      <p className="mt-1 font-display text-2xl capitalize text-ink">
         {weather.description}
       </p>
 

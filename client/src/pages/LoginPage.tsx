@@ -43,7 +43,7 @@ function LoginPage() {
       >
         <motion.h1
           variants={item}
-          className="text-center font-display text-6xl font-light italic leading-none text-ink"
+          className="text-center font-display text-6xl font-light leading-none text-ink"
         >
           Weather
         </motion.h1>
@@ -100,7 +100,7 @@ function LoginPage() {
             />
           </div>
 
-          {error && <p className="text-sm italic text-accent">{error}</p>}
+          {error && <p className="text-sm text-accent">{error}</p>}
 
           <button
             type="submit"
