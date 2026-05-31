@@ -20,18 +20,16 @@ function CitySearch() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-   
     if (skipSearch.current) {
       skipSearch.current = false;
       return;
     }
 
-    if (query.trim().length < 2) {
-      setSuggestions([]);
-      return;
-    }
-
     const timer = setTimeout(async () => {
+      if (query.trim().length < 2) {
+        setSuggestions([]);
+        return;
+      }
       try {
         const res = await client.get('/cities', { params: { q: query } });
         setSuggestions(res.data);
