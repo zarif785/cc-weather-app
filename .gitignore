@@ -6,6 +6,3 @@ build/
 coverage/
 *.log
 .DS_Store
-docs
-CLAUDE.md
-.claude
